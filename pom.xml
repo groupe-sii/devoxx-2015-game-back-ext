@@ -7,6 +7,7 @@
 		<groupId>fr.sii.survival</groupId>
 		<artifactId>survival</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>survival-extensions</artifactId>
