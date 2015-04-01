@@ -1,4 +1,4 @@
-package fr.sii.survival.ext;
+package fr.sii.survival.ext.abaudet;
 
 import java.util.concurrent.TimeUnit;
 

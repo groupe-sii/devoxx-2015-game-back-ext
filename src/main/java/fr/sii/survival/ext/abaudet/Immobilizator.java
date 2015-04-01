@@ -1,4 +1,4 @@
-package fr.sii.survival.ext;
+package fr.sii.survival.ext.abaudet;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +19,7 @@ import fr.sii.survival.core.ext.behavior.move.RandomMoveNearBehavior;
 import fr.sii.survival.core.ext.behavior.target.RandomPlayerTargetBehavior;
 import fr.sii.survival.core.ext.behavior.target.TargetBehavior;
 import fr.sii.survival.core.service.game.PlayerTypePredicate;
-import fr.sii.survival.ext.constants.States;
+import fr.sii.survival.ext.abaudet.constants.States;
 
 /**
  * Enemy that immobilize a player and hit him progressively

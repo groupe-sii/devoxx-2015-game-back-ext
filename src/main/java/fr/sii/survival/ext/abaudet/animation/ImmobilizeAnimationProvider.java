@@ -1,4 +1,4 @@
-package fr.sii.survival.ext.animation;
+package fr.sii.survival.ext.abaudet.animation;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import fr.sii.survival.core.exception.AnimationInitializationException;
 import fr.sii.survival.core.exception.MimetypeDetectionException;
 import fr.sii.survival.core.ext.animation.AnimationProvider;
 import fr.sii.survival.core.ext.annotation.Developer;
-import fr.sii.survival.ext.constants.States;
+import fr.sii.survival.ext.abaudet.constants.States;
 
 /**
  * Animation that will start every time the CSS class "immobilized" is added on a player.

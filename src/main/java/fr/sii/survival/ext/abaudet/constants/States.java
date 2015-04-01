@@ -1,4 +1,4 @@
-package fr.sii.survival.ext.constants;
+package fr.sii.survival.ext.abaudet.constants;
 
 public enum States {
 	/**
