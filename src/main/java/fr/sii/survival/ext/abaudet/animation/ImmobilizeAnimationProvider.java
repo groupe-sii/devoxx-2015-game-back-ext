@@ -20,6 +20,13 @@ import fr.sii.survival.ext.abaudet.constants.States;
 @Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
 public class ImmobilizeAnimationProvider implements AnimationProvider {
 	
+	/**
+	 * This animation is used for the immobilize Rule and displays a root sprite on the targeted board cell
+	 * All the sprite is hosted in this extension module and informations sent to the client by websocket.
+	 * 
+	 * @return an SpriteAnimation
+	 * @throws AnimationInitializationException if error occurs while initializing the SpriteAnimation
+	 */
 	@Override
 	public Animation provide() throws AnimationInitializationException {
 		try {
@@ -28,5 +35,4 @@ public class ImmobilizeAnimationProvider implements AnimationProvider {
 			throw new AnimationInitializationException("Failed to initialize 'immobilized' animation", e);
 		}
 	}
-	
 }

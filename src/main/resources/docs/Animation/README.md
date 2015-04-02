@@ -24,6 +24,9 @@ public Animation provide() throws AnimationInitializationException {}
 
 #Utilities
 The [core](https://github.com/groupe-sii/devoxx-2015-game-back/tree/master/survival-core) module provides some animations that you can use with your images or sprites :
+- [AnimationBase](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/animation/AnimationBase.java) : Basic Animation, displays nothing, must have a name and a duration, this class should be extended to have a real animation. Do not use
+- [PropertiesAnimation](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/animation/PropertiesAnimation.java) : AnimationBase extension which uses a list of frames to display on the client (one frame = one image). Duration is the total duration of the Animation, each frame last for duration/number of frames.
+- [SpriteAnimation](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/animation/SpriteAnimation.java) : PropertiesAnimation extension that displays a frame for each image of the sprite. The server will generates a linear sprite with all the images you provides in the folder. /!\ All your images must be 60x60px.
 
 #Samples
 
@@ -32,6 +35,13 @@ The [core](https://github.com/groupe-sii/devoxx-2015-game-back/tree/master/survi
 @Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
 public class ImmobilizeAnimationProvider implements AnimationProvider {
 	
+	/**
+	 * This animation is used for the immobilize Rule and displays a root sprite on the targeted board cell
+	 * All the sprite is hosted in this extension module and informations sent to the client by websocket.
+	 * 
+	 * @return an SpriteAnimation
+	 * @throws AnimationInitializationException if error occurs while initializing the SpriteAnimation
+	 */
 	@Override
 	public Animation provide() throws AnimationInitializationException {
 		try {
@@ -40,6 +50,5 @@ public class ImmobilizeAnimationProvider implements AnimationProvider {
 			throw new AnimationInitializationException("Failed to initialize 'immobilized' animation", e);
 		}
 	}
-	
 }
 ```
