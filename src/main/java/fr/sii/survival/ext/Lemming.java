@@ -28,6 +28,7 @@ public class Lemming extends DelegateEnemyExtension {
 
 	/**
 	 * Lemmings are small rodents, usually found in or near the Arctic, in tundra biomes. They are subniveal animals, and together with voles and muskrats, they make up the subfamily Arvicolinae (also known as Microtinae), which forms part of the largest mammal radiation by far, the superfamily Muroidea, which also includes rats, mice, hamsters, and gerbils.
+	 * 
 	 * @return a lemming aka the weakest enemy in the world
 	 */
 	public Lemming() {
@@ -36,18 +37,22 @@ public class Lemming extends DelegateEnemyExtension {
 	}
 
 	/**
-	 * Chose a Random Target which is a living Wizard(human player)
-	 * @param  context 
-	 * @return         new RandomPlayerTargetBehavior targeting a living wizard;
+	 * Chose a Random Target (Enemy or Wizard (human players are wizards))
+	 * 
+	 * @param  context
+	 *           the game context
+	 * @return         new RandomPlayerTargetBehavior()
 	 */
 	@Override
 	protected TargetBehavior getTargetBehavior(GameContext context) {
-		return new RandomPlayerTargetBehavior(new PlayerTypePredicate(Wizard.class).and(p -> p.isAlive()));
+		return new RandomPlayerTargetBehavior();
 	}
 
 	/**
 	 * Lemming will attack its target (randomly chosen each action) every 2 seconds doing 20 health points damages
-	 * @param  context 
+	 * 
+	 * @param  context
+	 *           the game context
 	 * @return         AttackActionBehavior for 20 HP with a 2 seconds cooldown
 	 */
 	@Override
@@ -57,7 +62,9 @@ public class Lemming extends DelegateEnemyExtension {
 
 	/**
 	 * Randomly moves by one case horizontally or vertically (exclusive)
+	 * 
 	 * @param  context 
+	 *           the game context
 	 * @return         RandomMoveNearBehavior
 	 */
 	@Override

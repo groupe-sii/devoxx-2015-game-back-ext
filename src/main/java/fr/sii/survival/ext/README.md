@@ -16,9 +16,9 @@ public class MyEnemy extends DelegateEnemyExtension {}
 - email is optionnal, will be used only to inform the developer if his extension is disabled for any reason. If you dont care for these notifications, you can omit it.
 
 3) Provides a default constructor
-Must call super(String name, [Base64ServerImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/Base64ServerImage.java) image, Integer life) with : 
+Must call super(String name, Image image, Integer life) with : 
 - name : your Enemy name
-- image : your Enemy icon on the board, the easy way is to add a 48x48px image in [image folder](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/images) and to call new Base64ServerImage("images/myimage.png")
+- image : your Enemy icon on the board, the easy way is to add a 48x48px image in [image folder](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/images) and to call new [Base64ServerImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/Base64ServerImage.java)("images/myimage.png")
 - life : the enemy Health Points
 ```java
 public MyEnemy() throws IOException, MimetypeDetectionException {
@@ -46,10 +46,10 @@ Basically The TargetBehavior returned is the part of the AI which choses cells t
 
 ## Extending EnemyActionBehavior
 Here stands the actions your Enemy does
-takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/EnemyActionBehavior.java) implementation (see [below](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/java/fr/sii/survival/ext#enemyactionbehavior-implementations) for samples), may throw a [GameException](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/exception/GameException.java)
+takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/EnemyActionBehavior.java) implementation (see [below](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/java/fr/sii/survival/ext#enemyactionbehavior-implementations) for samples)
 ```java
 @Override
-  protected EnemyActionBehavior getActionBehavior(GameContext context) throws GameException {}
+  protected EnemyActionBehavior getActionBehavior(GameContext context) {}
 ```
 Basically The EnemyActionBehavior returned is the enemy AI it will do something to its targets.
 
@@ -146,7 +146,6 @@ public class Lemming extends DelegateEnemyExtension {
 }
 ```
 
-
 ## Immobilizator
 ```java
 /**
@@ -158,11 +157,37 @@ public class Lemming extends DelegateEnemyExtension {
 @Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
 public class Immobilizator extends DelegateEnemyExtension {
 
+  /**
+   * Immobilizator is a StateChange specialist who prevents its target form moving in order to hit him easily
+   * 
+   * @return An Enemy named Immobilizator with 5000 HP and a Client hosted image
+   */
   public Immobilizator() {
     super("Immobilizator", new ClientImage("npc5_fr1"), 5000);
   }
 
+  /**
+   * Chose a Random Target which is a living Wizard(human player)
+   * 
+   * @param  context 
+   *           the game context
+   * @return         new RandomPlayerTargetBehavior targeting a living wizard
+   */
+  @Override
+  protected TargetBehavior getTargetBehavior(GameContext context) {
+    // randomly targets one human player that is alive, if nobody matches then no action is executed
+    return new RandomPlayerTargetBehavior(new PlayerTypePredicate(Wizard.class).and(p -> p.isAlive()));
+  }
   
+  /**
+   * Immobilizator immobilizes its target for 5 seconds(TemporaryChangeState) 
+   * and attacks(AttackActionBehavior) it repeatedly(RepeatedActionBehavior)(5 times) for 10 damages over the 5 seconds immobilization.
+   * Does it every 10 seconds(CooldownActionBehavior).
+   * 
+   * @param  context       
+   *           the game context
+   * @return               [description]
+   */
   @Override
   protected EnemyActionBehavior getActionBehavior(GameContext context) throws GameException {
     int spellDuration = 5000;
@@ -174,17 +199,17 @@ public class Immobilizator extends DelegateEnemyExtension {
         10, TimeUnit.SECONDS);
   }
 
+  /**
+   * Randomly moves by one case horizontally or vertically (exclusive)
+   * 
+   * @param  context 
+   *           the game context
+   * @return         RandomMoveNearBehavior
+   */
   @Override
   protected EnemyMoveBehavior getMoveBehavior(GameContext context) {
     return new RandomMoveNearBehavior();
   }
-
-  @Override
-  protected TargetBehavior getTargetBehavior(GameContext context) {
-    // randomly targets one human player that is alive, if nobody matches then no action is executed
-    return new RandomPlayerTargetBehavior(new PlayerTypePredicate(Wizard.class).and(p -> p.isAlive()));
-  }
-
 }
 ```
 
