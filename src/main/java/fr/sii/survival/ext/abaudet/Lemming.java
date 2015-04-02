@@ -6,6 +6,7 @@ import fr.sii.survival.core.domain.image.ClientImage;
 import fr.sii.survival.core.domain.player.Wizard;
 import fr.sii.survival.core.ext.DelegateEnemyExtension;
 import fr.sii.survival.core.ext.GameContext;
+import fr.sii.survival.core.ext.annotation.Developer;
 import fr.sii.survival.core.ext.behavior.action.AttackActionBehavior;
 import fr.sii.survival.core.ext.behavior.action.CooldownActionBehavior;
 import fr.sii.survival.core.ext.behavior.action.EnemyActionBehavior;
@@ -15,6 +16,14 @@ import fr.sii.survival.core.ext.behavior.target.RandomPlayerTargetBehavior;
 import fr.sii.survival.core.ext.behavior.target.TargetBehavior;
 import fr.sii.survival.core.service.game.PlayerTypePredicate;
 
+/**
+ * Simple enemy that attack a random alive player every 2 seconds. He attacks
+ * making 20 points of damage to targeted player.
+ * 
+ * @author Aurélien Baudet
+ *
+ */
+@Developer(value = "abaudet", name = "Aurélien Baudet", email = "abaudet@sii.fr")
 public class Lemming extends DelegateEnemyExtension {
 
 	public Lemming() {

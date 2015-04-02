@@ -3,13 +3,25 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
+	<!-- <parent>
 		<groupId>fr.sii.survival</groupId>
 		<artifactId>survival</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-
+		<relativePath />
+	</parent> -->
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<nexus.release.url>http://nexus.devoxx.sii.fr/content/repositories/releases</nexus.release.url>
+		<nexus.snapshot.url>http://nexus.devoxx.sii.fr/content/repositories/snapshots</nexus.snapshot.url>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+	</properties>
+	
+	<groupId>fr.sii.survival</groupId>
 	<artifactId>survival-extensions</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>game extensions</name>
@@ -22,5 +34,31 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+	
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	
+	
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Internal Releases</name>
+			<url>${nexus.release.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Internal Snapshots</name>
+			<url>${nexus.snapshot.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
 
