@@ -1,4 +1,4 @@
-package fr.sii.survival.ext.rules;
+package fr.sii.survival.ext.abaudet.rules;
 
 import fr.sii.survival.core.domain.board.Board;
 import fr.sii.survival.core.domain.board.Cell;
@@ -6,7 +6,7 @@ import fr.sii.survival.core.domain.player.Player;
 import fr.sii.survival.core.ext.annotation.Developer;
 import fr.sii.survival.core.service.board.Direction;
 import fr.sii.survival.core.service.board.rule.AllowMoveRule;
-import fr.sii.survival.ext.constants.States;
+import fr.sii.survival.ext.abaudet.constants.States;
 
 /**
  * Rule that prevents a player moving if the player has the state {@link States}.IMMOBILIZED
@@ -29,7 +29,7 @@ public class ImmobilizeRule implements AllowMoveRule {
 	}
 
 	private boolean isImmobilized(Player player) {
-		return player.getPlayerStates().getStates().contains(States.IMMOBILIZED.getValue());
+		return player.getPlayerStates().getStates().contains(States.IMMOBILIZED.toString());
 	}
 
 }

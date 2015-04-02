@@ -1,4 +1,4 @@
-package fr.sii.survival.ext;
+package fr.sii.survival.ext.abaudet;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,10 +19,10 @@ import fr.sii.survival.core.ext.behavior.move.RandomMoveNearBehavior;
 import fr.sii.survival.core.ext.behavior.target.RandomPlayerTargetBehavior;
 import fr.sii.survival.core.ext.behavior.target.TargetBehavior;
 import fr.sii.survival.core.service.game.PlayerTypePredicate;
-import fr.sii.survival.ext.constants.States;
+import fr.sii.survival.ext.abaudet.constants.States;
 
 /**
- * Enemy that immobilizes a player and hits him progressively
+ * Enemy that immobilize a player and hit him progressively
  * 
  * @author Aurélien Baudet
  *
@@ -31,22 +31,20 @@ import fr.sii.survival.ext.constants.States;
 public class Immobilizator extends DelegateEnemyExtension {
 
 	/**
-	 * Immobilizator is a StateChange specialist who prevents its target form
-	 * moving in order to hit him easily
+	 * Immobilizator is a StateChange specialist who prevents its target form moving in order to hit him easily
 	 * 
-	 * @return An Enemy named Immobilizator with 5000 HP and a Client hosted
-	 *         image
+	 * @return An Enemy named Immobilizator with 5000 HP and a Client hosted image
 	 */
 	public Immobilizator() {
 		super("Immobilizator", new ClientImage("npc5_fr1"), 5000);
 	}
 
 	/**
-	 * Chose a random target which is a living Wizard (human player)
+	 * Chose a Random Target which is a living Wizard(human player)
 	 * 
-	 * @param context
-	 *            the game context
-	 * @return new RandomPlayerTargetBehavior targeting a living wizard
+	 * @param  context 
+	 *           the game context
+	 * @return         new RandomPlayerTargetBehavior targeting a living wizard
 	 */
 	@Override
 	protected TargetBehavior getTargetBehavior(GameContext context) {
@@ -55,17 +53,13 @@ public class Immobilizator extends DelegateEnemyExtension {
 	}
 	
 	/**
-	 * Immobilizator immobilizes its target for 5 seconds and makes 10 points of damage every seconds:
-	 * <ul>
-	 * <li>TemporaryChangeState is used to apply the state "immobilized" on the player for 5 seconds</li>
-	 * <li>AttackActionBehavior is used to attack the targeted alive players and make them 10 points of damage</li>
-	 * <li>RepeatedActionBehavior is used to repeat the previous attack action 5 times (1 per second)</li>
-	 * <li>CooldownActionBehavior is used to execute all the previous actions only every 10 seconds</li>
-	 * </ul>
+	 * Immobilizator immobilizes its target for 5 seconds(TemporaryChangeState) 
+	 * and attacks(AttackActionBehavior) it repeatedly(RepeatedActionBehavior)(5 times) for 10 damages over the 5 seconds immobilization.
+	 * Does it every 10 seconds(CooldownActionBehavior).
 	 * 
-	 * @param context
-	 *            the game context
-	 * @return the immobilize action that is composed of several simple actions
+	 * @param  context       
+	 *           the game context
+	 * @return               [description]
 	 */
 	@Override
 	protected EnemyActionBehavior getActionBehavior(GameContext context) throws GameException {
@@ -74,16 +68,16 @@ public class Immobilizator extends DelegateEnemyExtension {
 					// Action that adds "immobilized" state on the players available on targeted cell and remove it after 5 seconds
 					new MultiActionBehavior(
 							new RepeatedActionBehavior(new AttackActionBehavior(actionService, enemy, 10), spellDuration/5, 5),
-							new TemporaryChangeState(actionService, enemy, States.IMMOBILIZED.getValue(), spellDuration)),
+							new TemporaryChangeState(actionService, enemy, States.IMMOBILIZED.toString(), spellDuration)),
 				10, TimeUnit.SECONDS);
 	}
 
 	/**
 	 * Randomly moves by one case horizontally or vertically (exclusive)
 	 * 
-	 * @param context
-	 *            the game context
-	 * @return the enemy will move either one case (either up, down, left or right)
+	 * @param  context 
+	 *           the game context
+	 * @return         RandomMoveNearBehavior
 	 */
 	@Override
 	protected EnemyMoveBehavior getMoveBehavior(GameContext context) {

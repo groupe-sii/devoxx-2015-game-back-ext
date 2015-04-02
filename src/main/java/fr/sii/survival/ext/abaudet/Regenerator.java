@@ -1,4 +1,4 @@
-package fr.sii.survival.ext;
+package fr.sii.survival.ext.abaudet;
 
 import fr.sii.survival.core.domain.image.ClientImage;
 import fr.sii.survival.core.ext.DelegateEnemyExtension;
