@@ -47,5 +47,4 @@ public class WorldBoss extends DelegateEnemyExtension implements SpecialEnemy {
 	protected TargetBehavior getTargetBehavior(GameContext context) {
 		return new RandomPlayerTargetBehavior(Wizard.class);
 	}
-
 }
