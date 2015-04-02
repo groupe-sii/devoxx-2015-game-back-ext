@@ -42,7 +42,7 @@ public class Immobilizator extends DelegateEnemyExtension {
 					// Action that adds "immobilized" state on the players available on targeted cell and remove it after 5 seconds
 					new MultiActionBehavior(
 							new RepeatedActionBehavior(new AttackActionBehavior(actionService, enemy, 10), spellDuration/5, 5),
-							new TemporaryChangeState(actionService, enemy, States.IMMOBILIZED.toString(), spellDuration)),
+							new TemporaryChangeState(actionService, enemy, States.IMMOBILIZED.getValue(), spellDuration)),
 				10, TimeUnit.SECONDS);
 	}
 

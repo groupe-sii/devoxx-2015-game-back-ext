@@ -4,5 +4,9 @@ public enum States {
 	/**
 	 * State used to indicate that a player is immobilized
 	 */
-	IMMOBILIZED
+	IMMOBILIZED;
+	
+	public String getValue() {
+		return name().toLowerCase();
+	}
 }
