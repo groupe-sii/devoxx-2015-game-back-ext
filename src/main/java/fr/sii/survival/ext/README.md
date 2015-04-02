@@ -4,6 +4,27 @@ Enemy extension module for the SII Game development challenge (devoxx 2015)
 # [DelegateEnemyExtension](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/DelegateEnemyExtension.java)
 This is the Enemy SuperClass(Abstract), all your Enemies extensions must extend it and overrides 3 methods : `EnemyActionBehavior`, `EnemyMoveBehavior`, and `TargetBehavior` in order to provides a proper AI (Artificial Intelligence)
 
+## Starting your Enemy
+1) Create a class extending DelegateEnemyExtension with the @Developer annotation (mandatory to have the extension taken in account by the program)
+```java
+@Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
+public class MyEnemy extends DelegateEnemyExtension {}
+```
+2) the @Developer annontation
+- if absent the code will not be loaded by the application
+- value and name are mandatory and provides the Extension author
+- email is optionnal, will be used only to inform the developer if his extension is disabled for any reason. If you dont care for these notifications, you can omit it.
+
+3) Provides a default constructor
+Must call super(String name, [Base64ServerImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/Base64ServerImage.java) image, Integer life) with : 
+- name : your Enemy name
+- image : your Enemy icon on the board, the easy way is to add a 48x48px image in [image folder](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/images) and to call new Base64ServerImage("images/myimage.png")
+- life : the enemy Health Points
+```java
+public MyEnemy() throws IOException, MimetypeDetectionException {
+  super("MyEnemyIsGreat", new Base64ServerImage("images/myenemy.png"), 3000);
+}
+```
 
 ## Extending EnemyMoveBehavior
 Here stands the move logic of your Enemy
@@ -45,16 +66,16 @@ The [core](https://github.com/groupe-sii/devoxx-2015-game-back/tree/master/survi
 ## TargetBehavior implementations
 - [RandomCellTargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/RandomCellTargetBehavior.java) : Target a random cell on the board (near useless one ;))
 
-- [RandomPlayerTargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/RandomPlayerTargetBehavior.java) : Target a cell with a player chosen randomly on it.
+- [RandomPlayerTargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/RandomPlayerTargetBehavior.java) : Target a cell with a player(Enemy or Wizard) chosen randomly on it. You can instanciate this one with a Predicate applied on the Player to say if it is eligible. (i.e. the Player is an Enemy, or a Wizard)
 
-- [SinglePlayerTargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/SinglePlayerTargetBehavior.java) : chose a player and target it until the enemy or the player dies.
+- [SinglePlayerTargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/SinglePlayerTargetBehavior.java) : chose a player and target it forever (even if the player is dead).
 
 ## EnemyActionBehavior implementations
-- [AttackActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/AttackActionBehavior.java) : Simplest behavior, will attack Enemies and Players on the targeted cell by an amount. (a negative amount is a heal)
+- [AttackActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/AttackActionBehavior.java) : Simplest behavior, will attack Enemies and Players on the targeted cell by an amount.
 
-- [HealActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/HealActionBehavior.java) : Simplest behavior, will heal Enemies and Players on the targeted cell by an amount. (a negative amount is an attack)
+- [HealActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/HealActionBehavior.java) : Simplest behavior, will heal Enemies and Players on the targeted cell by an amount.
 
-- [UpdateStateActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/UpdateStateActionBehavior.java) : Add a [StateChange](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/action/StateChange.java) to all Enemies and Players on the targeted Cell. States must have a [client](https://github.com/groupe-sii/devoxx-2015-game-front) counterpart to effectively do something. Try [extending](https://github.com/groupe-sii/devoxx-2015-game-front/tree/master/app/scripts/Extension) the front ! 
+- [UpdateStateActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/UpdateStateActionBehavior.java) : Add a [StateChange](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/action/StateChange.java) to all Enemies and Players on the targeted Cell. States should have a [client](https://github.com/groupe-sii/devoxx-2015-game-front) counterpart to informs players that something is happening. Try [extending](https://github.com/groupe-sii/devoxx-2015-game-front/tree/master/app/scripts/Extension) the front ! 
 
 - [TemporaryChangeState](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/TemporaryChangeState.java) : Same as [UpdateStateActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/UpdateStateActionBehavior.java), but with a duration.
 
@@ -71,6 +92,60 @@ The [core](https://github.com/groupe-sii/devoxx-2015-game-back/tree/master/survi
 - [TemporaryActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/TemporaryActionBehavior.java) : Action over the time for a duration. Works by execution two actions ([MultiActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/MultiActionBehavior.java)) one that start the action at the call and one [DelayedActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/DelayedActionBehavior.java), to stop it.
 
 #Samples
+
+## Lemming
+```java
+/**
+ * Simple enemy that attack a random alive player every 2 seconds. He attacks
+ * making 20 points of damage to targeted player.
+ * 
+ * @author Aurélien Baudet
+ *
+ */
+@Developer(value = "abaudet", name = "Aurélien Baudet", email = "abaudet@sii.fr")
+public class Lemming extends DelegateEnemyExtension {
+
+  /**
+   * Lemmings are small rodents, usually found in or near the Arctic, in tundra biomes. They are subniveal animals, and together with voles and muskrats, they make up the subfamily Arvicolinae (also known as Microtinae), which forms part of the largest mammal radiation by far, the superfamily Muroidea, which also includes rats, mice, hamsters, and gerbils.
+   * @return a lemming aka the weakest enemy in the world
+   */
+  public Lemming() {
+    //This enemy has its image hosted in the client, and 10 Health Points
+    super("Lemming", new ClientImage("lemming"), 10);
+  }
+
+  /**
+   * Chose a Random Target which is a living Wizard(human player)
+   * @param  context 
+   * @return         new RandomPlayerTargetBehavior targeting a living wizard;
+   */
+  @Override
+  protected TargetBehavior getTargetBehavior(GameContext context) {
+    return new RandomPlayerTargetBehavior(new PlayerTypePredicate(Wizard.class).and(p -> p.isAlive()));
+  }
+
+  /**
+   * Lemming will attack its target (randomly chosen each action) every 2 seconds doing 20 health points damages
+   * @param  context 
+   * @return         AttackActionBehavior for 20 HP with a 2 seconds cooldown
+   */
+  @Override
+  protected EnemyActionBehavior getActionBehavior(GameContext context) {
+    return new CooldownActionBehavior(new AttackActionBehavior(actionService, getEnemy(), 20), 2, TimeUnit.SECONDS);
+  }
+
+  /**
+   * Randomly moves by one case horizontally or vertically (exclusive)
+   * @param  context 
+   * @return         RandomMoveNearBehavior
+   */
+  @Override
+  protected EnemyMoveBehavior getMoveBehavior(GameContext context) {
+    return new RandomMoveNearBehavior();
+  }
+}
+```
+
 
 ## Immobilizator
 ```java
@@ -116,7 +191,7 @@ public class Immobilizator extends DelegateEnemyExtension {
 ## WorldBoss
 ```java
 /**
- * Enemy that attackes large Areas of the board
+ * Enemy that attacks a large Areas of the board
  * 
  * @author Aurélien Baudet
  *
