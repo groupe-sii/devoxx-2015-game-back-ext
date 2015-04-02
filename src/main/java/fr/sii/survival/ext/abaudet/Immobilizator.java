@@ -30,11 +30,37 @@ import fr.sii.survival.ext.abaudet.constants.States;
 @Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
 public class Immobilizator extends DelegateEnemyExtension {
 
+	/**
+	 * Immobilizator is a StateChange specialist who prevents its target form moving in order to hit him easily
+	 * 
+	 * @return An Enemy named Immobilizator with 5000 HP and a Client hosted image
+	 */
 	public Immobilizator() {
 		super("Immobilizator", new ClientImage("npc5_fr1"), 5000);
 	}
 
+	/**
+	 * Chose a Random Target which is a living Wizard(human player)
+	 * 
+	 * @param  context 
+	 *           the game context
+	 * @return         new RandomPlayerTargetBehavior targeting a living wizard
+	 */
+	@Override
+	protected TargetBehavior getTargetBehavior(GameContext context) {
+		// randomly targets one human player that is alive, if nobody matches then no action is executed
+		return new RandomPlayerTargetBehavior(new PlayerTypePredicate(Wizard.class).and(p -> p.isAlive()));
+	}
 	
+	/**
+	 * Immobilizator immobilizes its target for 5 seconds(TemporaryChangeState) 
+	 * and attacks(AttackActionBehavior) it repeatedly(RepeatedActionBehavior)(5 times) for 10 damages over the 5 seconds immobilization.
+	 * Does it every 10 seconds(CooldownActionBehavior).
+	 * 
+	 * @param  context       
+	 *           the game context
+	 * @return               [description]
+	 */
 	@Override
 	protected EnemyActionBehavior getActionBehavior(GameContext context) throws GameException {
 		int spellDuration = 5000;
@@ -46,15 +72,15 @@ public class Immobilizator extends DelegateEnemyExtension {
 				10, TimeUnit.SECONDS);
 	}
 
+	/**
+	 * Randomly moves by one case horizontally or vertically (exclusive)
+	 * 
+	 * @param  context 
+	 *           the game context
+	 * @return         RandomMoveNearBehavior
+	 */
 	@Override
 	protected EnemyMoveBehavior getMoveBehavior(GameContext context) {
 		return new RandomMoveNearBehavior();
 	}
-
-	@Override
-	protected TargetBehavior getTargetBehavior(GameContext context) {
-		// randomly targets one human player that is alive, if nobody matches then no action is executed
-		return new RandomPlayerTargetBehavior(new PlayerTypePredicate(Wizard.class).and(p -> p.isAlive()));
-	}
-
 }

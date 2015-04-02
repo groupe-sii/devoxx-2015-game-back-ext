@@ -1,4 +1,4 @@
-# devoxx-2015-game-back-extensions
+# devoxx-2015-game-back-ext
 Extension module for the Game development challenge (devoxx 2015)
 
 # Prerequisities
