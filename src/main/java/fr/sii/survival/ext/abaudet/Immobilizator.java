@@ -34,7 +34,7 @@ public class Immobilizator extends DelegateEnemyExtension {
 	 * Immobilizator is a StateChange specialist who prevents its target form
 	 * moving in order to hit him easily
 	 * 
-	 * @return An Enemy named Immobilizator with 5000 HP and a Client hosted
+	 * Creates an Enemy named Immobilizator with 5000 HP and a Client hosted
 	 *         image
 	 */
 	public Immobilizator() {

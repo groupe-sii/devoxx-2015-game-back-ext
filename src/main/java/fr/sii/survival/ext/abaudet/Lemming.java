@@ -32,7 +32,7 @@ public class Lemming extends DelegateEnemyExtension {
 	 * superfamily Muroidea, which also includes rats, mice, hamsters, and
 	 * gerbils.
 	 * 
-	 * @return a lemming aka the weakest enemy in the world
+	 * Creates a lemming aka the weakest enemy in the world
 	 */
 	public Lemming() {
 		//This enemy has its image hosted in the client, and 10 Health Points
