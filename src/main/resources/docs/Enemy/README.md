@@ -28,7 +28,7 @@ public MyEnemy() throws IOException, MimetypeDetectionException {
 
 ## Extending EnemyMoveBehavior
 Here stands the move logic of your Enemy
-takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyMoveBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/move/EnemyMoveBehavior.java) implementation (see [below](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/java/fr/sii/survival/ext#enemymovebehavior-implementations) for samples)
+takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyMoveBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/move/EnemyMoveBehavior.java) implementation (see [below](#enemymovebehavior-implementations) for samples)
 ```java
 @Override
 protected EnemyMoveBehavior getMoveBehavior(GameContext context) {}
@@ -37,7 +37,7 @@ Basically The EnemyMoveBehavior returned is the part of the AI which computes ne
 
 ## Extending TargetBehavior
 Here stands the targeting logic of your Enemy
-takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [TargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/TargetBehavior.java) implementation (see [below](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/java/fr/sii/survival/ext#targetbehavior-implementations) for samples)
+takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [TargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/TargetBehavior.java) implementation (see [below](#targetbehavior-implementations) for samples)
 ```java
 @Override
 protected TargetBehavior getTargetBehavior(GameContext context) {}
@@ -46,7 +46,7 @@ Basically The TargetBehavior returned is the part of the AI which choses cells t
 
 ## Extending EnemyActionBehavior
 Here stands the actions your Enemy does
-takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/EnemyActionBehavior.java) implementation (see [below](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/java/fr/sii/survival/ext#enemyactionbehavior-implementations) for samples)
+takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/EnemyActionBehavior.java) implementation (see [below](#enemyactionbehavior-implementations) for samples)
 ```java
 @Override
   protected EnemyActionBehavior getActionBehavior(GameContext context) {}
