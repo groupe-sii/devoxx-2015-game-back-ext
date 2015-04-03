@@ -18,10 +18,10 @@ import fr.sii.survival.core.ext.behavior.target.TargetBehavior;
  *
  */
 @Developer(value = "cdejonghe", name = "Cyril Dejonghe", email = "cdejonghe@sii.fr")
-public class Assassin extends DelegateEnemyExtension {
+public class Assassin /*extends DelegateEnemyExtension */{
 
 	protected Assassin() {
-		super("Assassin", new ClientImage("assasin"), 10);
+		//super("Assassin", new ClientImage("assasin"), 10);
 	}
 
 	@Override
