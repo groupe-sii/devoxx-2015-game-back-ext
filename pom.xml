@@ -32,7 +32,7 @@
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Tests -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -58,9 +58,53 @@
 					<failOnError>false</failOnError>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+				</configuration>
+			</plugin>
 		</plugins>
 	</reporting>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<instrumentation>
+						<includes>
+							<include>fr/sii/**/*.class</include>
+						</includes>
+					</instrumentation>
+				</configuration>
+				<executions>
+					<execution>
+						<id>clean</id>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>instrument</id>
+						<phase>site</phase>
+						<goals>
+							<goal>instrument</goal>
+							<goal>cobertura</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 	<distributionManagement>
 		<repository>
