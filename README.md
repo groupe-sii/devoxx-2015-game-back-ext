@@ -14,13 +14,13 @@ Extension module for the Game development challenge (devoxx 2015)
 To help you to handle our extensions API, we provide some documentation and obviously some javadoc.
 ## Documentation
 ### Enemies
-See the [Enemy](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/docs/Enemy) documentation
+See the [Enemy](src/main/resources/docs/Enemy) documentation
 
 ### Animations
-See the [Animations](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/docs/Animation) documentation
+See the [Animations](src/main/resources/docs/Animation) documentation
 
 ### Rules
-See the [Rules](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/docs/Rule) documentation
+See the [Rules](src/main/resources/docs/Rule) documentation
 
 ## Javadoc
 * Main module and game API : http://game.javadoc.devoxx.sii.fr/core/
