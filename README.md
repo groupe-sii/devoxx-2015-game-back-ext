@@ -25,3 +25,4 @@ See the [Rules](src/main/resources/docs/Rule) documentation
 ## Javadoc
 * Main module and game API : http://game.javadoc.devoxx.sii.fr/core/
 * Game extensions API : http://game.javadoc.devoxx.sii.fr/extensions/
+
