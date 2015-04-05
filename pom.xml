@@ -3,22 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- <parent>
-		<groupId>fr.sii.survival</groupId>
-		<artifactId>survival</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath />
-	</parent> -->
-	
+	<!-- <parent> <groupId>fr.sii.survival</groupId> <artifactId>survival</artifactId> 
+		<version>0.0.1-SNAPSHOT</version> <relativePath /> </parent> -->
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<mockito.version>1.9.5</mockito.version>
+		<junit.version>4.12</junit.version>
 		<nexus.release.url>http://nexus.devoxx.sii.fr/content/repositories/releases</nexus.release.url>
 		<nexus.snapshot.url>http://nexus.devoxx.sii.fr/content/repositories/snapshots</nexus.snapshot.url>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
-	
+
 	<groupId>fr.sii.survival</groupId>
 	<artifactId>survival-extensions</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -34,8 +32,22 @@
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- Tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-	
+
 	<reporting>
 		<plugins>
 			<plugin>
@@ -48,8 +60,8 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	
-	
+
+
 	<distributionManagement>
 		<repository>
 			<id>nexus</id>
