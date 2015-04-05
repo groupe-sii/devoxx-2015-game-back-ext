@@ -202,7 +202,7 @@ public class Lemming extends DelegateEnemyExtension {
 
 A pain in the neck enemy that invokes roots. The roots will get out of the earth and block your feet. Then you can't move for 10 seconds. Moreover it makes you some damages while you are stuck.
 
-This example is the best one to show how to combine an enemy with a [rule](../../../../java/fr/sii/survival/ext/abaudet/rules/ImmobilizeRule.java) and an [animation](../../../../java/fr/sii/survival/ext/abaudet/animation/ImmobilizeAnimationProvider.java).
+This example is the best one to show how to combine an enemy with a [rule](../../../java/fr/sii/survival/ext/abaudet/rules/ImmobilizeRule.java) and an [animation](../../../java/fr/sii/survival/ext/abaudet/animation/ImmobilizeAnimationProvider.java).
 
 ```java
 /**
