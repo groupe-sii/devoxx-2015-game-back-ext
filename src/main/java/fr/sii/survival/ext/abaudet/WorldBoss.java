@@ -21,6 +21,14 @@ import fr.sii.survival.core.ext.behavior.move.RandomAroundNearBehavior;
 import fr.sii.survival.core.ext.behavior.target.RandomPlayerTargetBehavior;
 import fr.sii.survival.core.ext.behavior.target.TargetBehavior;
 
+/**
+ * A master enemy that is almost invincible !! You can hit him but he is very
+ * strong ! But there is a way to kill him easily, it's up to you to find how !
+ * He also attacks heavily on a large area.
+ * 
+ * @author Aurélien Baudet
+ *
+ */
 @Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
 public class WorldBoss extends DelegateEnemyExtension implements SpecialEnemy {
 
