@@ -26,6 +26,9 @@ You just need to execute the following command into the source folder (devoxx-20
 ~/git/devoxx-game-back-ext> mvn clean install
 ```
 
+## Run the extensions
+
+To run the extensions, you need to [follow these steps if not already done](https://github.com/groupe-sii/devoxx-2015-game-back).
 
 # Start coding extensions
 
