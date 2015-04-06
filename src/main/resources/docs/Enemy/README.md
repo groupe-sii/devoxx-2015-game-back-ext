@@ -303,10 +303,12 @@ public class Immobilizator extends DelegateEnemyExtension {
 
 ## WorldBoss
 
+This enemy is very strong and make damages to very large zone. You have 2 seconds to escape from its attack.
+
 ```java
 /**
  * A master enemy that is almost invincible !! You can hit him but he is very
- * strong ! But there is a way to kill him easily, it's up to you to find how !
+ * strong! But there is a way to kill him easily, it's up to you to find how!
  * He also attacks heavily on a large area.
  * 
  * @author Aurélien Baudet
@@ -320,13 +322,34 @@ public class WorldBoss extends DelegateEnemyExtension implements SpecialEnemy {
 	}
 
 	@Override
-	protected EnemyActionBehavior getActionBehavior(GameContext context) {
-		return new CooldownActionBehavior(new DelayedActionBehavior(
-					new AreaActionBehavior(
-							new AttackActionBehavior(actionService, getEnemy(), 500),
-							new Circle(context.getBoard(), 3)),
-					1, TimeUnit.SECONDS),
-				20, TimeUnit.SECONDS);
+	protected EnemyActionBehavior getActionBehavior(GameContext context) throws ImageException {
+		try {
+			long delay = 2000;
+			long imageAnimationDuration = 3000;
+			Circle circle = new Circle(context.getBoard(), 3);
+			Image image = new UriImage("images/lava/lava.gif");
+			return new CooldownActionBehavior(
+						new MultiActionBehavior(
+							new TemporaryActionBehavior(
+									new AreaActionBehavior(
+											new AddImageBehavior(actionService, enemy, image),
+											circle
+									),
+									new AreaActionBehavior(
+											new RemoveImageBehavior(actionService, enemy, image),
+											circle
+									),
+								imageAnimationDuration),
+							new DelayedActionBehavior(
+									new AreaActionBehavior(
+											new AttackActionBehavior(actionService, getEnemy(), 500),
+											circle),
+								delay)
+						),
+					20, TimeUnit.SECONDS);
+		} catch(URISyntaxException|IOException e) {
+			throw new ImageException("Failed to load lava image", e);
+		}
 	}
 
 	@Override
@@ -339,5 +362,6 @@ public class WorldBoss extends DelegateEnemyExtension implements SpecialEnemy {
 		return new RandomPlayerTargetBehavior(Wizard.class);
 	}
 }
+
 
 ```
