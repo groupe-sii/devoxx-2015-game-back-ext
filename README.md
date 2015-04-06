@@ -15,14 +15,15 @@ Extension module for the Game development challenge (devoxx 2015)
 
 Get the code using your git client:
 ```
-git clone https://github.com/groupe-sii/devoxx-2015-game-back-ext
+~/git> git clone https://github.com/groupe-sii/devoxx-2015-game-back-ext
 ```
 
 ## Generate the JAR file
 
 You just need to execute the following command into the source folder (devoxx-2015-game-back-ext):
 ```
-mvn clean install
+~/git> cd devoxx-game-back-ext
+~/git/devoxx-game-back-ext> mvn clean install
 ```
 
 
