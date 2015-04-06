@@ -19,10 +19,17 @@ import fr.sii.survival.core.ext.behavior.move.RandomMoveNearBehavior;
 import fr.sii.survival.core.ext.behavior.target.RandomPlayerTargetBehavior;
 import fr.sii.survival.core.ext.behavior.target.TargetBehavior;
 import fr.sii.survival.core.service.game.PlayerTypePredicate;
+import fr.sii.survival.ext.abaudet.animation.ImmobilizeAnimationProvider;
 import fr.sii.survival.ext.abaudet.constants.States;
+import fr.sii.survival.ext.abaudet.rules.ImmobilizeRule;
 
 /**
- * Enemy that immobilizes a player and hits him progressively
+ * Enemy that immobilizes a player and hits him progressively.
+ * 
+ * The real immobilization is done using {@link ImmobilizeRule} implementation.
+ * 
+ * The associated animation is done by {@link ImmobilizeAnimationProvider}
+ * implementation.
  * 
  * @author Aurélien Baudet
  *

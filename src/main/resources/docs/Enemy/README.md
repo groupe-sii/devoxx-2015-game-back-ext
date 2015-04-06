@@ -2,24 +2,34 @@
 Enemy extension module for the SII Game development challenge (devoxx 2015)
 
 # [DelegateEnemyExtension](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/DelegateEnemyExtension.java)
-This is the Enemy SuperClass(Abstract), all your Enemies extensions must extend it and overrides 3 methods : `EnemyActionBehavior`, `EnemyMoveBehavior`, and `TargetBehavior` in order to provides a proper AI (Artificial Intelligence)
+This is the simplest way to create an enemy. Just extend it and overrides 3 methods to provide basic AI (Artificial Intelligence) behaviors:
+- one `EnemyMoveBehavior` to indicate how your enemy will move on the board
+- one `TargetBehavior` to indicate how your enemy will target cells for actions
+- one `EnemyActionBehavior` to indicate which action your enemy will execute on targeted cells
+
+This basic way is used to declare a fixed AI. We encourage you to start with this helper class. However, if you want to create an AI that is smarter and evolves according to what happens on the game, you can ask Aurélien Baudet on the SII stand to provide useful information.
 
 ## Starting your Enemy
 1) Create a class extending DelegateEnemyExtension with the @Developer annotation (mandatory to have the extension taken in account by the program)
+
 ```java
 @Developer(value="abaudet", name="Aurélien Baudet", email="abaudet@sii.fr")
 public class MyEnemy extends DelegateEnemyExtension {}
 ```
-2) the @Developer annontation
+2) the @Developer annotation
 - if absent the code will not be loaded by the application
 - value and name are mandatory and provides the Extension author
-- email is optionnal, will be used only to inform the developer if his extension is disabled for any reason. If you dont care for these notifications, you can omit it.
+- email is optional, will be used only to inform the developer if his extension is disabled for any reason. If you don't care about these notifications, you can omit it.
 
 3) Provides a default constructor
 Must call super(String name, Image image, Integer life) with : 
-- name : your Enemy name
-- image : your Enemy icon on the board, the easy way is to add a 48x48px image in [image folder](https://github.com/groupe-sii/devoxx-2015-game-back-ext/tree/master/src/main/resources/images) and to call new [Base64ServerImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/Base64ServerImage.java)("images/myimage.png")
-- life : the enemy Health Points
+- name : your enemy name
+- image : your enemy icon on the board, the easy way is to add a 48x48px image in [image folder](src/main/resources/images) and to load it using either:
+  - [Base64ServerImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/Base64ServerImage.java): to load an image stored on the server side and base64 encoded
+  - [UriImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/UriImage.java): to load an image stored on the server side that provides an URL to access through HTTP
+  - [ClientImage](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/domain/image/ClientImage.java): to load an image stored on the client side. It just references an image hosted into the app/images folder off the client
+- life : your enemy health points
+
 ```java
 public MyEnemy() throws IOException, MimetypeDetectionException {
   super("MyEnemyIsGreat", new Base64ServerImage("images/myenemy.png"), 3000);

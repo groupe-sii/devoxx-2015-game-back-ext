@@ -12,7 +12,8 @@ import fr.sii.survival.core.ext.annotation.Developer;
 import fr.sii.survival.ext.abaudet.constants.States;
 
 /**
- * Animation that will start every time the CSS class "immobilized" is added on a player.
+ * Animation that will start every time the CSS class "immobilized" is added on
+ * a player.
  * 
  * @author Aurélien Baudet
  *
@@ -21,11 +22,13 @@ import fr.sii.survival.ext.abaudet.constants.States;
 public class ImmobilizeAnimationProvider implements AnimationProvider {
 	
 	/**
-	 * This animation is used for the immobilize Rule and displays a root sprite on the targeted board cell
-	 * All the sprite is hosted in this extension module and informations sent to the client by websocket.
+	 * This animation is used for the immobilize Rule and displays a root sprite
+	 * on the targeted board cell All the sprite is hosted in this extension
+	 * module and informations sent to the client by websocket.
 	 * 
 	 * @return an SpriteAnimation
-	 * @throws AnimationInitializationException if error occurs while initializing the SpriteAnimation
+	 * @throws AnimationInitializationException
+	 *             if error occurs while initializing the SpriteAnimation
 	 */
 	@Override
 	public Animation provide() throws AnimationInitializationException {
