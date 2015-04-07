@@ -26,7 +26,7 @@ public class ImmobilizeAnimationProvider implements AnimationProvider {
 	 * on the targeted board cell All the sprite is hosted in this extension
 	 * module and informations sent to the client by websocket.
 	 * 
-	 * @return an SpriteAnimation
+	 * @return a SpriteAnimation
 	 * @throws AnimationInitializationException
 	 *             if error occurs while initializing the SpriteAnimation
 	 */
