@@ -91,9 +91,9 @@
 
 	<repositories>
 		<repository>
-			<id>sii</id>
+			<id>nexus</id>
 			<name>SII public repository</name>
-			<url>${nexus.url}</url>
+			<url>${nexus.snapshot.url}</url>
 		</repository>
 	</repositories>
 
