@@ -42,7 +42,7 @@ public MyEnemy() throws IOException, MimetypeDetectionException {
 ```
 
 
-## Extending EnemyMoveBehavior
+## Providing EnemyMoveBehavior
 
 Here stands the move logic of your enemy. It 
 takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyMoveBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/move/EnemyMoveBehavior.java) implementation (see [below](#enemymovebehavior-implementations) for samples)
@@ -54,7 +54,7 @@ protected EnemyMoveBehavior getMoveBehavior(GameContext context) {}
 Basically The EnemyMoveBehavior returned is the part of the AI which computes next destination cell of your Enemy.
 
 
-## Extending TargetBehavior
+## Providing TargetBehavior
 
 Here stands the targeting logic of your enemy. It 
 takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [TargetBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/target/TargetBehavior.java) implementation (see [below](#targetbehavior-implementations) for samples)
@@ -67,9 +67,10 @@ protected TargetBehavior getTargetBehavior(GameContext context) {}
 Basically The TargetBehavior returned is the part of the AI that choses cells to target.
 
 
-## Extending EnemyActionBehavior
+## Providing EnemyActionBehavior
+
 Here stands the actions your enemy. It 
-takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/GameContext.java) and returns an [EnemyActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/EnemyActionBehavior.java) implementation (see [below](#enemyactionbehavior-implementations) for samples)
+takes the [GameContext](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/mfr/sii/survival/core/ext/GameContext.java) and returns an [EnemyActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/EnemyActionBehavior.java) implementation (see [below](#enemyactionbehavior-implementations) for samples)
 
 ```java
 @Override
@@ -91,6 +92,9 @@ The [core](https://github.com/groupe-sii/devoxx-2015-game-back/tree/master/survi
 - [RandomCellBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/move/RandomCellBehavior.java): Teleports your enemy on a random cell
 
 - [RandomMoveNearBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/move/RandomMoveNearBehavior.java): move your enemy by one horizontal or vertical (exclusive) cell.
+
+- [FollowPlayerBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/move/FollowPlayerBehavior.java): Your enemy will follow one player until you decide to change player to follow.
+
 
 ## TargetBehavior implementations
 
@@ -125,8 +129,24 @@ The [core](https://github.com/groupe-sii/devoxx-2015-game-back/tree/master/survi
 
 - [TemporaryActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/TemporaryActionBehavior.java): Action over the time for a duration. Works by execution two actions ([MultiActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/MultiActionBehavior.java)) one that start the action at the call and one [DelayedActionBehavior](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/DelayedActionBehavior.java), to stop it. The [TemporaryChangeState](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/behavior/action/TemporaryChangeState.java) is one of possible uses of this helper.
 
+## Access your enemy instance
 
-#Samples
+The [DelegateEnemyExtension](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/DelegateEnemyExtension.java) base class provides access to your enemy directly using ```getEnemy()```.
+
+## Fixed behavior vs Reload behavior
+
+By default the provided behaviors (move, target and action) are set at creation and never updates. If you want to get more control (for example, execute actions according to what happen on the game), you can ask [DelegateEnemyExtension](https://github.com/groupe-sii/devoxx-2015-game-back/blob/master/survival-core/src/main/java/fr/sii/survival/core/ext/DelegateEnemyExtension.java) to reload the behaviors every running loop (change your constructor by setting true to last parameter):
+
+```
+	public Lemming() {
+		super("Lemming", new ClientImage("lemming"), 10, true);
+	}
+```
+
+By activating the reload, the three behavior methods will be called on every loop. You need to manually keep references to the previous behaviors to prevent re-creating all every time.
+
+
+# Samples
 
 ## Lemming
 
@@ -283,10 +303,12 @@ public class Immobilizator extends DelegateEnemyExtension {
 
 ## WorldBoss
 
+This enemy is very strong and make damages to very large zone. You have 2 seconds to escape from its attack.
+
 ```java
 /**
  * A master enemy that is almost invincible !! You can hit him but he is very
- * strong ! But there is a way to kill him easily, it's up to you to find how !
+ * strong! But there is a way to kill him easily, it's up to you to find how!
  * He also attacks heavily on a large area.
  * 
  * @author Aurélien Baudet
@@ -300,13 +322,34 @@ public class WorldBoss extends DelegateEnemyExtension implements SpecialEnemy {
 	}
 
 	@Override
-	protected EnemyActionBehavior getActionBehavior(GameContext context) {
-		return new CooldownActionBehavior(new DelayedActionBehavior(
-					new AreaActionBehavior(
-							new AttackActionBehavior(actionService, getEnemy(), 500),
-							new Circle(context.getBoard(), 3)),
-					1, TimeUnit.SECONDS),
-				20, TimeUnit.SECONDS);
+	protected EnemyActionBehavior getActionBehavior(GameContext context) throws ImageException {
+		try {
+			long delay = 2000;
+			long imageAnimationDuration = 3000;
+			Circle circle = new Circle(context.getBoard(), 3);
+			Image image = new UriImage("images/lava/lava.gif");
+			return new CooldownActionBehavior(
+						new MultiActionBehavior(
+							new TemporaryActionBehavior(
+									new AreaActionBehavior(
+											new AddImageBehavior(actionService, enemy, image),
+											circle
+									),
+									new AreaActionBehavior(
+											new RemoveImageBehavior(actionService, enemy, image),
+											circle
+									),
+								imageAnimationDuration),
+							new DelayedActionBehavior(
+									new AreaActionBehavior(
+											new AttackActionBehavior(actionService, getEnemy(), 500),
+											circle),
+								delay)
+						),
+					20, TimeUnit.SECONDS);
+		} catch(URISyntaxException|IOException e) {
+			throw new ImageException("Failed to load lava image", e);
+		}
 	}
 
 	@Override
@@ -319,5 +362,6 @@ public class WorldBoss extends DelegateEnemyExtension implements SpecialEnemy {
 		return new RandomPlayerTargetBehavior(Wizard.class);
 	}
 }
+
 
 ```
