@@ -1,7 +1,7 @@
 # devoxx-2015-game-back-ext
 Extension module for the Game development challenge (devoxx 2015)
 
-# Prerequisites
+# 1. Prerequisites
 
 * [git](http://git-scm.com/downloads)
 * [Java JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -9,16 +9,16 @@ Extension module for the Game development challenge (devoxx 2015)
 * A JAVA editor
 
 
-# Grab the code
+# 2. Grab the code
 
-## Get the sources
+## 2.1 Get the sources
 
 Get the code using your git client:
 ```
 ~/git> git clone https://github.com/groupe-sii/devoxx-2015-game-back-ext
 ```
 
-## Generate the JAR file
+## 2.2 Generate the JAR file
 
 You just need to execute the following command into the source folder (devoxx-2015-game-back-ext):
 ```
@@ -26,16 +26,16 @@ You just need to execute the following command into the source folder (devoxx-20
 ~/git/devoxx-game-back-ext> mvn clean install
 ```
 
-## Run the extensions
+## 2.3 Run the extensions
 
 To run the extensions, you need to [follow these steps if not already done](https://github.com/groupe-sii/devoxx-2015-game-back).
 
-# Start coding extensions
+# 3 Start coding extensions
 
 To help you to handle our extensions API, we provide some documentation and obviously some javadoc.
 
 
-## Documentation
+## 3.1 Documentation
 
 ### Enemies
 
@@ -52,19 +52,19 @@ See the [Animations](src/main/resources/docs/Animation) documentation
 See the [Rules](src/main/resources/docs/Rule) documentation
 
 
-## Javadoc
+## 3.2 Javadoc
 * Main module and game API : http://game.javadoc.devoxx.sii.fr/core/
 * Game extensions API : http://game.javadoc.devoxx.sii.fr/extensions/
 
 
-# Push your extensions
+# 4. Push your extensions
 
-## Ask access
+## 4.1 Ask access
 
 Before you can push your changes, you need to ask for write access to the repository. First, you need to create a Github account. Then, you can contact Aurélien Baudet on the SII stand to send you an invitation.
 
 
-## Pull and push
+## 4.2 Pull and push
 
 Once you have developed your extension and you want to view it online, you need to push your changes to the remote git. But before doing this, ensure that you have the latest sources:
 ```
