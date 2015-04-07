@@ -37,10 +37,10 @@ public class StalkerActionBehavior implements EnemyActionBehavior {
 	@Override
 	public void execute(Game game, Cell cell) throws GameException {
 		if (isTargetInSight(game, cell)) {
-			LOG.info("Target in sight => executing delegate action (Game: {}, Cell: {})", game, cell);
+			LOG.debug("Target in sight => executing delegate action (Game: {}, Cell: {}), Stalker {}", game, cell, stalker);
 			delegate.execute(game, cell);
 		} else {
-			LOG.info("Cannot see target, waiting");
+			LOG.debug("Cannot see target, waiting. Stalker {}", stalker);
 		}
 	}
 

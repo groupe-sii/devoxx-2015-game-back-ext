@@ -13,8 +13,8 @@ import fr.sii.survival.ext.cdejonghe.domain.player.Stalker;
  */
 @Developer(value = "cdejonghe", name = "Cyril Dejonghe", email = "cdejonghe@sii.fr")
 public class StalkerMoveBehavior extends FollowPlayerBehavior {
-	public StalkerMoveBehavior(Stalker stalker, int speed) {
-		super(stalker, null, speed);
+	public StalkerMoveBehavior(Stalker stalker, int speed, int distance) {
+		super(stalker, null, speed, distance);
 	}
 
 	@Override

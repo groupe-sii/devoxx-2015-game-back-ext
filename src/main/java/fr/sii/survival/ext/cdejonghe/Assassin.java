@@ -30,7 +30,7 @@ import fr.sii.survival.ext.cdejonghe.constants.States;
 import fr.sii.survival.ext.cdejonghe.domain.player.Stalker;
 
 /**
- * Enemy that stalks a player until he is close enough to poisonned it and then
+ * Enemy that stalks a player until he is close enough to poison it and then
  * chooses another target.
  * 
  * @author Cyril Dejonghe
@@ -61,6 +61,9 @@ public class Assassin extends DelegateEnemyExtension {
 			int actionDurationInMillis = POISON_DURATION_IN_SEC * ONE_SEC_IN_MILLIS;
 			Image image = new UriImage(POISON_IMAGE_FILE);
 
+			// As we can only change state and apply actions to board cells and
+			// not player, the behavior wil more reflect a poison bottle dropped
+			// on the board and will affect any player moving on this cell
 			return new StalkerActionBehavior(
 					(Stalker) getEnemy(),
 					new MultiActionBehavior(
@@ -81,7 +84,7 @@ public class Assassin extends DelegateEnemyExtension {
 
 	@Override
 	protected EnemyMoveBehavior getMoveBehavior(GameContext context) throws GameException {
-		return new StalkerMoveBehavior((Stalker) getEnemy(), ASSASSIN_SPEED);
+		return new StalkerMoveBehavior((Stalker) getEnemy(), ASSASSIN_SPEED, POISON_DISTANCE);
 	}
 
 	@Override
