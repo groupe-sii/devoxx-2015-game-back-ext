@@ -25,7 +25,7 @@ public class ExplosiveGoblin extends DelegateEnemyExtension {
 	private Player target = null;
 	
 	public ExplosiveGoblin() throws IOException, MimetypeDetectionException {
-		super("GoblinWithDynamite", new Base64ServerImage("images/explosiveGoblin.png"), 5000, true);
+		super("GoblinWithDynamite", new Base64ServerImage("images/explosiveGoblin.png"), 1500, true);
 	}
 
 	@Override
