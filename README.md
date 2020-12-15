@@ -1,3 +1,7 @@
+# WARNING: UNMAINTAINED PROJECT
+
+This project is no longer supported or maintained. Please consider reviewing code and dependencies before using it.
+
 # devoxx-2015-game-back-ext
 Extension module for the Game development challenge (devoxx 2015)
 
